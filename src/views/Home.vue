@@ -11,8 +11,8 @@
         <div>Info one: {{ this.infoOne }}</div>
         <div>Info two: {{ this.infoTwo }}</div>
 
-        <div id="controller_two">two</div>
         <div id="controller_one">one</div>
+        <div id="controller_two">two</div>
       </div>
     </ion-content>
   </ion-page>
