@@ -1,0 +1,7 @@
+{
+  "name": "ionic_gesture_test",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
