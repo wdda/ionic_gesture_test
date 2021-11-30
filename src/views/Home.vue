@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonPage } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { createGesture, Gesture } from '@ionic/core'
 
@@ -21,10 +21,7 @@ export default defineComponent({
   name: 'Home',
   components: {
     IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonToolbar
+    IonPage
   },
   mounted () {
     this.$nextTick(() => {
