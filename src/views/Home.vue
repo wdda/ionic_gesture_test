@@ -1,11 +1,5 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
@@ -14,8 +8,11 @@
       </ion-header>
     
       <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <div>Info one: {{ this.infoOne }}</div>
+        <div>Info two: {{ this.infoTwo }}</div>
+
+        <div id="controller_two">two</div>
+        <div id="controller_one">one</div>
       </div>
     </ion-content>
   </ion-page>
@@ -24,6 +21,7 @@
 <script lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { createGesture, Gesture } from '@ionic/core'
 
 export default defineComponent({
   name: 'Home',
@@ -33,36 +31,93 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar
+  },
+  mounted () {
+    this.$nextTick(() => {
+      const one = document.getElementById('controller_one') as HTMLElement
+
+      const gestureOne: Gesture = createGesture({
+        el: one,
+        threshold: 0,
+        disableScroll: true,
+        gestureName: 'controller-one',
+        onStart: ev => this.onStartOne(ev),
+        onEnd: () => this.onEndOne(),
+        onMove: ev => this.onMoveOne(ev)
+      })
+
+      gestureOne.enable()
+
+      const two = document.getElementById('controller_two') as HTMLElement
+
+      const gestureTwo: Gesture = createGesture({
+        el: two,
+        threshold: 0,
+        disableScroll: true,
+        gestureName: 'controller-one',
+        onStart: ev => this.onStartTwo(ev),
+        onEnd: () => this.onEndTwo(),
+        onMove: ev => this.onMoveTwo(ev)
+      })
+
+      gestureTwo.enable()
+    })
+  },
+  methods: {
+    onStartOne(ev: any) {
+      this.infoOne = ev.currentX
+    },
+    onEndOne() {
+      this.infoOne = null
+    },
+    onMoveOne(ev: any) {
+      this.infoOne = ev.currentX
+    },
+    onStartTwo(ev: any) {
+      this.infoTwo = ev.currentX
+    },
+    onEndTwo() {
+      this.infoTwo = null
+    },
+    onMoveTwo(ev: any) {
+      this.infoTwo = ev.currentX
+    }
+  },
+  data() {
+    return {
+      infoOne: null,
+      infoTwo: null,
+    }
   }
 });
 </script>
 
 <style scoped>
 #container {
-  text-align: center;
-  
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+ #controller_two {
+   width: 100px;
+   height: 100px;
+   position: absolute;
+   bottom: 50px;
+   right: 50px;
+   background-color: #2dd36f;
+   z-index: 1;
+ }
+
+#controller_one {
+  width: 100px;
+  height: 100px;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 50px;
+  left: 50px;
+  background-color: #2dd36f;
+  z-index: 2;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
 </style>

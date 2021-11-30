@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "ionic_gesture_test",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
